@@ -238,53 +238,53 @@ ngx_http_cookie_flag_filter_append(ngx_http_request_t *r, ngx_http_cookie_t *coo
     ngx_str_t tmp;
 
     if (cookie->httponly == 1 && ngx_strcasestrn(header->value.data, "; HttpOnly", 10 - 1) == NULL) {
-        tmp.data = ngx_pnalloc(r->pool, header->value.len + sizeof("; HttpOnly") - 1);
+        tmp.data = ngx_pnalloc(r->pool, header->value.len + sizeof("; HttpOnly"));
         if (tmp.data == NULL) {
             return NGX_ERROR;
         }
-        tmp.len = ngx_sprintf(tmp.data, "%V; HttpOnly", &header->value) - tmp.data;
+        tmp.len = ngx_sprintf(tmp.data, "%V; HttpOnly%Z", &header->value) - tmp.data;
         header->value.data = tmp.data;
-        header->value.len = tmp.len;
+        header->value.len = tmp.len - 1;
     }
 
     if (cookie->secure == 1 && ngx_strcasestrn(header->value.data, "; secure", 8 - 1) == NULL) {
-        tmp.data = ngx_pnalloc(r->pool, header->value.len + sizeof("; secure") - 1);
+        tmp.data = ngx_pnalloc(r->pool, header->value.len + sizeof("; secure"));
         if (tmp.data == NULL) {
             return NGX_ERROR;
         }
-        tmp.len = ngx_sprintf(tmp.data, "%V; secure", &header->value) - tmp.data;
+        tmp.len = ngx_sprintf(tmp.data, "%V; secure%Z", &header->value) - tmp.data;
         header->value.data = tmp.data;
-        header->value.len = tmp.len;
+        header->value.len = tmp.len - 1;
     }
 
     if (cookie->samesite == 1 && ngx_strcasestrn(header->value.data, "; SameSite", 10 - 1) == NULL) {
-        tmp.data = ngx_pnalloc(r->pool, header->value.len + sizeof("; SameSite") - 1);
+        tmp.data = ngx_pnalloc(r->pool, header->value.len + sizeof("; SameSite"));
         if (tmp.data == NULL) {
             return NGX_ERROR;
         }
-        tmp.len = ngx_sprintf(tmp.data, "%V; SameSite", &header->value) - tmp.data;
+        tmp.len = ngx_sprintf(tmp.data, "%V; SameSite%Z", &header->value) - tmp.data;
         header->value.data = tmp.data;
-        header->value.len = tmp.len;
+        header->value.len = tmp.len - 1;
     }
 
     if (cookie->samesite_lax == 1 && ngx_strcasestrn(header->value.data, "; SameSite=Lax", 14 - 1) == NULL) {
-        tmp.data = ngx_pnalloc(r->pool, header->value.len + sizeof("; SameSite=Lax") - 1);
+        tmp.data = ngx_pnalloc(r->pool, header->value.len + sizeof("; SameSite=Lax"));
         if (tmp.data == NULL) {
             return NGX_ERROR;
         }
-        tmp.len = ngx_sprintf(tmp.data, "%V; SameSite=Lax", &header->value) - tmp.data;
+        tmp.len = ngx_sprintf(tmp.data, "%V; SameSite=Lax%Z", &header->value) - tmp.data;
         header->value.data = tmp.data;
-        header->value.len = tmp.len;
+        header->value.len = tmp.len - 1;
     }
 
     if (cookie->samesite_strict == 1 && ngx_strcasestrn(header->value.data, "; SameSite=Strict", 17 - 1) == NULL) {
-        tmp.data = ngx_pnalloc(r->pool, header->value.len + sizeof("; SameSite=Strict") - 1);
+        tmp.data = ngx_pnalloc(r->pool, header->value.len + sizeof("; SameSite=Strict"));
         if (tmp.data == NULL) {
             return NGX_ERROR;
         }
-        tmp.len = ngx_sprintf(tmp.data, "%V; SameSite=Strict", &header->value) - tmp.data;
+        tmp.len = ngx_sprintf(tmp.data, "%V; SameSite=Strict%Z", &header->value) - tmp.data;
         header->value.data = tmp.data;
-        header->value.len = tmp.len;
+        header->value.len = tmp.len - 1;
     }
 
     return NGX_OK;
